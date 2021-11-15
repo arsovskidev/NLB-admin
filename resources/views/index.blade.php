@@ -42,17 +42,18 @@
                 </a>
             </nav>
         </div>
-        <div class="height-100 bg-light">
+        <div>
             <section class="content-section" id="api-documentation">
                 <h1 class="fw-normal">API Documentation</h1>
                 <h4 class="fw-light">
                     <div>Version: <span class="text-purple">1.0.0</span></div>
                     <div>API Status: <span class="text-green">UP</span></div>
+            </section>
+            <section class="content-section" id="stats">
+                <h1 class="fw-normal">Stats</h1>
+            </section>
         </div>
-        </section>
-        <section class="content-section" id="stats">
-            <h1 class="fw-normal">Stats</h1>
-        </section>
+
         </div>
     </body>
 @endsection

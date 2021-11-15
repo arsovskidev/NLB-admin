@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 break;
             }
         }
-        if (window.innerHeight + scroll + 5 >= document.body.scrollHeight) { // end of scroll, last element
+        if (window.innerHeight + scroll + 5 >= document.body.scrollHeight) { 
             let elems = document.querySelectorAll(".nav_list a");
             [].forEach.call(elems, function (el) {
                 el.classList.remove("active");
