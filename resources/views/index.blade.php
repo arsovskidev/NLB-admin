@@ -21,7 +21,7 @@
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
                 <div>
-                    <a href="/" class="nav_logo">
+                    <a href="{{ route('home.index') }}" class="nav_logo">
                         <i class="bx bx-layer nav_logo-icon"></i>
                         <span class="nav_logo-name">NLB Open Finance</span>
                     </a>
@@ -36,7 +36,7 @@
                         </a>
                     </div>
                 </div>
-                <a class="nav_link">
+                <a href="{{ route('admin.login') }}" class="nav_link">
                     <i class="bx bx-cog nav_icon"></i>
                     <span class="nav_name">Admin</span>
                 </a>
@@ -44,13 +44,18 @@
         </div>
         <div>
             <section class="content-section" id="api-documentation">
-                <h1 class="fw-normal">API Documentation</h1>
-                <h4 class="fw-light">
-                    <div>Version: <span class="text-purple">1.0.0</span></div>
-                    <div>API Status: <span class="text-green">UP</span></div>
+                <div class="container-fluid">
+                    <h1 class="fw-normal">API Documentation</h1>
+                    <h4 class="fw-light">
+                        <div>Version: <span class="text-purple">1.0.0</span></div>
+                        <div>API Status: <span class="text-green">UP</span></div>
+                    </h4>
+                </div>
             </section>
             <section class="content-section" id="stats">
-                <h1 class="fw-normal">Stats</h1>
+                <div class="container-fluid">
+                    <h1 class="fw-normal">Stats</h1>
+                </div>
             </section>
         </div>
 

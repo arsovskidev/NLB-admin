@@ -3,9 +3,10 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #2a027e;
-    --first-color-light: #afa5d9;
+    --color-purple: #2a027e;
+    --color-purple-light: #afa5d9;
     --white-color: #f7f6fb;
+    --gray-color: #747474;
     --body-font: "Ubuntu", sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100;
@@ -33,7 +34,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: #747474;
+    color: var(--gray-color);
 }
 
 p {
@@ -51,13 +52,19 @@ section {
 }
 
 .text-purple {
-    color: #2a027e;
+    color: var(--color-purple);
 }
 .text-green {
     color: #8ab738;
 }
 .text-red {
     color: #b73838;
+}
+
+.btn-purple,
+.btn-purple:hover {
+    background-color: var(--color-purple);
+    color: var(--white-color);
 }
 
 .header {
@@ -76,7 +83,7 @@ section {
 }
 
 .header_toggle {
-    color: var(--first-color);
+    color: var(--color-purple);
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -100,7 +107,7 @@ section {
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background-color: var(--first-color);
+    background-color: var(--color-purple);
     padding: 0.5rem 1rem 0 0;
     transition: 0.5s;
     z-index: var(--z-fixed);
@@ -139,7 +146,7 @@ section {
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--color-purple-light);
     margin-bottom: 1.5rem;
     transition: 0.3s;
     cursor: pointer;
