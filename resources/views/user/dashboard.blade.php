@@ -7,7 +7,7 @@
     <script src="{{ asset('js/script.js') }}"></script>
 @endsection
 
-@section('title', 'NLB Admin Dashboard')
+@section('title', 'NLB Dashboard')
 
 @section('body')
 
@@ -21,7 +21,7 @@
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
                 <div>
-                    <a href="{{ route('admin.logout') }}" class="nav_link ">
+                    <a href="{{ route('user.logout') }}" class="nav_link ">
                         <i class="bx bx-log-out nav_icon"></i>
                         <span class="nav_name">Logout</span>
                     </a>
@@ -31,7 +31,8 @@
         <div>
             <section class="content-section">
                 <div class="container-fluid">
-                    <h1 class="fw-normal">Welcome Admin!</h1>
+                    <h1 class="fw-normal">Welcome {{ Auth::user()->name }}!</h1>
+                    <h5 class="fw-normal">How are you today?</h5>
                 </div>
             </section>
         </div>
