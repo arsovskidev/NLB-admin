@@ -53,7 +53,7 @@
                     <h1 class="fw-normal">API Documentation</h1>
                     <h4 class="fw-light">
                         <div>Version: <span class="text-purple">1.0.9</span></div>
-                        <div>API Status: <span class="text-green">UP</span></div>
+                        <div id="api-status"></div>
                     </h4>
 
                     <div class="mt-5">
@@ -88,5 +88,17 @@
                 </div>
             </section>
         </div>
+        <script>
+            $.ajax({
+                url: "/api/v1/status",
+                type: 'GET',
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res.data.message);
+                    $("#api-status").html(res.data.message + ` [${res.data.ping}ms]`)
+                    $("#api-status").addClass("text-" + res.data.color)
+                }
+            });
+        </script>
     </body>
 @endsection

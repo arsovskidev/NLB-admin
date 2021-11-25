@@ -15,19 +15,22 @@ class InfoController extends ResponseController
         }
 
         $start = microtime_float();
-        fsockopen($request->ip(), 80, $errno, $errstr, 30);
+        fsockopen("www.google.com", 80, $errno, $errstr, 30);
         $end = microtime_float();
         $ms = ($end - $start) * 1000;
         $ping = round($ms, 2);
 
         if ($ping < 50) {
-            $ping_message = "Low latency.";
+            $message = "System is operational.";
+            $color = "green";
         } else if ($ping > 50 && $ping < 100) {
-            $ping_message = "Medium latency.";
+            $message = "System have medium latency issues.";
+            $color = "orange";
         } else {
-            $ping_message = "High latency!";
+            $message = "System have high latency issues.";
+            $color = "red";
         }
 
-        return $this->send_response("success", ["message" => $ping_message, "ping" => $ping], 404);
+        return $this->send_response("success", ["message" => $message, "color" => $color, "ping" => $ping], 200);
     }
 }
