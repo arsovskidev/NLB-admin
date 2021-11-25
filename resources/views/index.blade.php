@@ -36,14 +36,14 @@
                             <i class="bx bx-code-alt nav_icon"></i>
                             <span class="nav_name">API Documentation</span>
                         </a>
-                        <a data-target="stats" class="scroll-to-link nav_link">
+                        <a data-target="statistics" class="scroll-to-link nav_link">
                             <i class="bx bx-stats nav_icon"></i>
                             <span class="nav_name">Stats</span>
                         </a>
                     </div>
                 </div>
                 <a href="{{ route('user.index') }}" class="nav_link">
-                    <i class="bx bx-cog nav_icon"></i>
+                    <i class="bx bx-log-in nav_icon"></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
             </nav>
@@ -53,15 +53,14 @@
                 <div class="container-fluid">
                     <h1 class="fw-normal">API Documentation</h1>
                     <h4 class="fw-light">
-                        <div>Version: <span class="text-purple">1.0.9</span></div>
+                        <div>Version: <span class="text-purple">{{ env('APP_VERSION') }}</span></div>
                         <div id="api-status"></div>
                     </h4>
-
                     <div class="mt-5">
                         <h1 class="fw-normal fs-3">GET</h1>
-                        <hr>
+                        <hr class="mb-0" style="height: 2px;">
                         <div class="container">
-                            <div class="row">
+                            <div class="row py-3">
                                 <div class="col-md-3">
                                     <div class="fw-light">
                                         <pre><code class="language-plaintext" style="color: #2a027e;">Check API Status</code></pre>
@@ -78,15 +77,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="m-0">
+
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="content-section" id="stats">
+            <section class="content-section my-5" id="statistics">
                 <div class="container-fluid">
-                    <h1 class="fw-normal">Stats</h1>
-                </div>
+                    <h1 class="fw-normal">Statistics</h1>
+                    <div class="mt-5">
+                        <h1 class="fw-normal fs-3">Banks</h1>
+                        <hr style="height: 2px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card text-center">
+                                        <img class="mx-auto" src="{{ asset('images/nlb.png') }}" alt="NLB"
+                                            width="200px" />
+                                        <div class="card-body">
+                                            <p class="card-text text-red">Bank under maintenance.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </section>
         </div>
         <script>
@@ -95,7 +111,6 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res.data.message);
                     $("#api-status").html(res.data.message + ` [${res.data.ping}ms]`)
                     $("#api-status").addClass("text-" + res.data.color)
                 }

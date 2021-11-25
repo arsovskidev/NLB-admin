@@ -224,3 +224,41 @@ section {
         padding-left: calc(var(--nav-width) + 188px);
     }
 }
+.pagination > li > a,
+.pagination > li > span {
+    color: var(--gray-color);
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: var(--gray-color);
+    border-color: var(--gray-color);
+}
+
+.page-item.active .page-link {
+    background-color: var(--gray-color);
+    border-color: var(--gray-color);
+}
+.page-link:hover {
+    color: var(--gray-color);
+}
+.pagination > li > a,
+.pagination > li > span:hover {
+    color: var(--gray-color);
+}
+
+.table-purple {
+    --bs-table-bg: var(--color-purple);
+    --bs-table-striped-bg: var(--color-purple);
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: var(--color-purple);
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: var(--color-purple);
+    --bs-table-hover-color: #fff;
+    color: #fff;
+    border-color: var(--color-purple);
+}

@@ -13,17 +13,17 @@ class InfoController extends ResponseController
             list($usec, $sec) = explode(" ", microtime());
             return ((float)$usec + (float)$sec);
         }
-
+        $dns_testing = "1.1.1.1";
         $start = microtime_float();
-        fsockopen("1.1.1.1", 80, $errno, $errstr, 30);
+        fsockopen($dns_testing, 80, $errno, $errstr, 30);
         $end = microtime_float();
         $ms = ($end - $start) * 1000;
         $ping = round($ms, 2);
 
-        if ($ping < 40) {
+        if ($ping < 30) {
             $message = "System is operational.";
             $color = "green";
-        } else if ($ping > 40 && $ping < 100) {
+        } else if ($ping > 30 && $ping < 70) {
             $message = "System have medium latency issues.";
             $color = "orange";
         } else {
@@ -31,6 +31,6 @@ class InfoController extends ResponseController
             $color = "red";
         }
 
-        return $this->send_response("success", ["message" => $message, "color" => $color, "ping" => $ping], 200);
+        return $this->send_response("success", ["testing_dns" => $dns_testing, "message" => $message, "color" => $color, "ping" => $ping], 200);
     }
 }
