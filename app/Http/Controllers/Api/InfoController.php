@@ -15,15 +15,15 @@ class InfoController extends ResponseController
         }
 
         $start = microtime_float();
-        fsockopen("www.google.com", 80, $errno, $errstr, 30);
+        fsockopen("1.1.1.1", 80, $errno, $errstr, 30);
         $end = microtime_float();
         $ms = ($end - $start) * 1000;
         $ping = round($ms, 2);
 
-        if ($ping < 50) {
+        if ($ping < 40) {
             $message = "System is operational.";
             $color = "green";
-        } else if ($ping > 50 && $ping < 100) {
+        } else if ($ping > 40 && $ping < 100) {
             $message = "System have medium latency issues.";
             $color = "orange";
         } else {
