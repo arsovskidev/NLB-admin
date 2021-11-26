@@ -11,7 +11,7 @@ class ResponseController extends Controller
     {
         $response = [
             'status' => $status,
-            'data'    => $data,
+            'data' => $data,
         ];
 
         return response()->json($response, $code);

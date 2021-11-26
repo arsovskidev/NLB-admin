@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\WidgetToken;
 
 class UserController extends Controller
 {
@@ -58,7 +60,11 @@ class UserController extends Controller
         $input['password'] = Hash::make($request->password);
 
         $user = User::create($input);
+
+        WidgetToken::create(['user_id' => $user->id, 'access_token' => "widget" . Str::random(35)]);
+
         Auth::login($user);
+
 
         return redirect()->route('user.dashboard')
             ->with('login_success', 'Successfully registered!');
