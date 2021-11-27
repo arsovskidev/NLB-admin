@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         div.onclick = function (e) {
             e.preventDefault();
             let target = this.dataset.target;
+            console.log(target)
             document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
             return false;
         };

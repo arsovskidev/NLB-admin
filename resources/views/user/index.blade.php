@@ -133,4 +133,11 @@
             });
         </script>
     @endif
+    @if (\Session::has('scroll'))
+        <script>
+            document.getElementById('{{ \Session::get('scroll') }}').scrollIntoView({
+                behavior: 'smooth'
+            });
+        </script>
+    @endif
 @endsection

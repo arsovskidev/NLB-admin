@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'api_key_id',
         'name',
         'surname',
         'email',
@@ -43,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function apiKey()
+    {
+        return $this->hasOne(ApiKey::class);
+    }
+
+    public function widgetKey()
+    {
+        return $this->hasOne(WidgetKey::class);
+    }
 }
