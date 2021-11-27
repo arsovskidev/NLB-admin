@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}" />
 @endsection
 @section('js')
     <script src="{{ asset('js/script.js') }}"></script>
@@ -75,16 +76,61 @@
                     <h1 class="fw-normal">Banks</h1>
                     <div class="container">
                         <div class="mt-5">
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card my-5">
+                                        <form action="{{ route('admin.bank.add') }}" method="POST" class="card-form">
+                                            @csrf
+                                            <div class="input">
+                                                <input type="text" id="bank_name" name="bank_name" class="input-field"
+                                                    required />
+                                                <label class="input-label">Bank Name</label>
+                                            </div>
+                                            {!! $errors->first('bank_name', '<p class="help-block text-red">:message</p>') !!}
+                                            <div class="input">
+                                                <input type="text" id="bank_api" name="bank_api" class="input-field"
+                                                    required />
+                                                <label class="input-label">Bank API</label>
+                                            </div>
+                                            {!! $errors->first('bank_api', '<p class="help-block text-red">:message</p>') !!}
+                                            <div class="action">
+                                                <button class="action-button py-2">Add Bank System</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <div class="row">
+                                @foreach ($banks as $bank)
+                                    <div class="col-md-3 mt-4">
+                                        <div class="card text-center">
+                                            <img class="mx-auto" src="{{ $bank->getBankImage() }}" alt="NLB"
+                                                width="200px" />
+                                            <div class="card-body">
+                                                <p class="card-text text-red">{{ $bank->status }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
             </section>
         </div>
     </body>
-    @if (\Session::has('login_success'))
+    @if (\Session::has('alert_message'))
         <script>
             iziToast.success({
-                message: '{{ \Session::get('login_success') }}'
+                message: '{{ \Session::get('alert_message') }}'
+            });
+        </script>
+    @endif
+    @if (\Session::has('scroll'))
+        <script>
+            document.getElementById('{{ \Session::get('scroll') }}').scrollIntoView({
+                behavior: 'smooth'
             });
         </script>
     @endif

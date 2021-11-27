@@ -13,6 +13,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login',       [AdminController::class, 'index'])->name('admin.index');
     Route::get('/logout',      [AdminController::class, 'logout'])->name('admin.logout');
     Route::post('/login',      [AdminController::class, 'login'])->name('admin.login');
+
+    Route::group(['prefix' => 'bank',], function () {
+        Route::post('/add',    [AdminController::class, 'bankAdd'])->middleware('auth:admin')->name('admin.bank.add');
+    });
 });
 
 Route::group(['prefix' => 'account'], function () {

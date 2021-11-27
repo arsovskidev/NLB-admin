@@ -78,7 +78,30 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h1 class="fw-normal fs-3">POST - <span class="text-danger">Auth Required!</span></h1>
+                        <hr class="mb-0" style="height: 2px;">
+                        <div class="container">
+                            <div class="row py-3">
+                                <div class="col-md-3">
+                                    <div class="fw-light">
+                                        <pre><code class="language-plaintext" style="color: #2a027e;">Validate Widget Key</code></pre>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="fw-light">
+                                        <pre><code class="language-bash text-dark">https://api.nlb.astennu.com/api/v1/widget/validate</code></pre>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="fw-light">
+                                        <pre><code class="language-bash" style="color: white; background: #2a027e;">curl --request POST --url https://api.nlb.astennu.com/api/v1/widget/validate --header 'Accept: application/json' --header 'X-Authorization: WIDGET_KEY'</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0">
                         </div>
                     </div>
                 </div>
@@ -91,15 +114,17 @@
                         <hr style="height: 2px;">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="card text-center">
-                                        <img class="mx-auto" src="{{ asset('images/nlb.png') }}" alt="NLB"
-                                            width="200px" />
-                                        <div class="card-body">
-                                            <p class="card-text text-red">Bank under maintenance.</p>
+                                @foreach ($banks as $bank)
+                                    <div class="col-md-3 mt-4">
+                                        <div class="card text-center">
+                                            <img class="mx-auto" src="{{ $bank->getBankImage() }}" alt="NLB"
+                                                width="200px" />
+                                            <div class="card-body">
+                                                <p class="card-text text-red">{{ $bank->status }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

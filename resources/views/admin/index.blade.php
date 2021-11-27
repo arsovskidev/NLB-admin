@@ -2,7 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}" />
 @endsection
 @section('js')
     <script src="{{ asset('js/script.js') }}"></script>
