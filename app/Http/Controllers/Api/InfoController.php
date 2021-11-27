@@ -31,6 +31,6 @@ class InfoController extends ResponseController
             $color = "red";
         }
 
-        return $this->send_response("success", ["testing_dns" => $dns_testing, "message" => $message, "color" => $color, "ping" => $ping], 200);
+        return $this->sendResponse("success", ["testing_dns" => $dns_testing, "message" => $message, "color" => $color, "ping" => $ping], 200);
     }
 }

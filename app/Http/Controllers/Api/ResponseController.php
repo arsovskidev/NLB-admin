@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ResponseController extends Controller
 {
-    public function send_response($status, $data = [], $code)
+    public function sendResponse($status, $data = [], $code)
     {
         $response = [
             'status' => $status,

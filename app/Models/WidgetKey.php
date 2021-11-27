@@ -30,6 +30,19 @@ class WidgetKey extends Model
         return self::where('key', $key)->withTrashed()->first() instanceof self;
     }
 
+    public static function getByKey($key)
+    {
+        return self::where([
+            'key'    => $key,
+            'active' => 1
+        ])->first();
+    }
+
+    public static function isValidKey($key)
+    {
+        return self::getByKey($key) instanceof self;
+    }
+
     public function user()
     {
         return $this->belongsTo(WidgetKey::class);

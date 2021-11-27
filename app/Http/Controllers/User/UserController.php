@@ -82,6 +82,8 @@ class UserController extends Controller
     public function revokeApiKey()
     {
         $user = Auth::user();
+        $user->apiKey->active = 0;
+        $user->apiKey->save();
         $user->apiKey->delete();
         ApiKey::create(['user_id' => $user->id, 'key' => ApiKey::generate()]);
         return redirect()->route('user.dashboard')->with(['alert_message' => 'Successfully revoked API Key!', 'scroll' => 'keys']);
@@ -90,6 +92,8 @@ class UserController extends Controller
     public function revokeWidgetKey()
     {
         $user = Auth::user();
+        $user->widgetKey->active = 0;
+        $user->widgetKey->save();
         $user->widgetKey->delete();
         WidgetKey::create(['user_id' => $user->id, 'key' => widgetKey::generate()]);
         return redirect()->route('user.dashboard')->with(['alert_message' => 'Successfully revoked Widget Key!', 'scroll' => 'keys']);

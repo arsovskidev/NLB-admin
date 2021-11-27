@@ -22,29 +22,16 @@ class ApiKey extends Model
         'key',
     ];
 
-    /**
-     * Get the related ApiKeyAccessEvents records
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function accessEvents()
     {
         return $this->hasMany(ApiKeyAccessEvent::class, 'api_key_id');
     }
 
-    /**
-     * Get the related ApiKeyAdminEvents records
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function adminEvents()
     {
         return $this->hasMany(ApiKeyAdminEvent::class, 'api_key_id');
     }
 
-    /**
-     * Bootstrapping event handlers
-     */
     public static function boot()
     {
         parent::boot();
@@ -71,11 +58,6 @@ class ApiKey extends Model
         });
     }
 
-    /**
-     * Generate a secure unique API key
-     *
-     * @return string
-     */
     public static function generate()
     {
         do {
@@ -85,12 +67,6 @@ class ApiKey extends Model
         return $key;
     }
 
-    /**
-     * Get ApiKey record by key value
-     *
-     * @param string $key
-     * @return bool
-     */
     public static function getByKey($key)
     {
         return self::where([
@@ -99,36 +75,16 @@ class ApiKey extends Model
         ])->first();
     }
 
-    /**
-     * Check if key is valid
-     *
-     * @param string $key
-     * @return bool
-     */
     public static function isValidKey($key)
     {
         return self::getByKey($key) instanceof self;
     }
 
-    /**
-     * Check if a key already exists
-     *
-     * Includes soft deleted records
-     *
-     * @param string $key
-     * @return bool
-     */
     public static function keyExists($key)
     {
         return self::where('key', $key)->withTrashed()->first() instanceof self;
     }
 
-    /**
-     * Log an API key admin event
-     *
-     * @param ApiKey $apiKey
-     * @param string $eventName
-     */
     protected static function logApiKeyAdminEvent(ApiKey $apiKey, $eventName)
     {
         $event             = new ApiKeyAdminEvent;

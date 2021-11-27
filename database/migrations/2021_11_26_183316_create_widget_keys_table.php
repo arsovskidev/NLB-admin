@@ -17,6 +17,7 @@ class CreateWidgetKeysTable extends Migration
             $table->id();
             $table->uuid('user_id')->nullable(false);
             $table->string('key', 64);
+            $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
 
