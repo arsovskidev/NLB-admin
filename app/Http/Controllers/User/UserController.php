@@ -43,7 +43,7 @@ class UserController extends Controller
                 ->with('alert_message', 'Successfully logged in!');
         }
 
-        return redirect()->back()->with('invalid_credentials', 'Login credentials are invalid.');
+        return redirect()->back()->with('alert_message', 'Login credentials are invalid.');
     }
     public function register(Request $request)
     {
@@ -71,7 +71,7 @@ class UserController extends Controller
         Auth::login($user);
 
         return redirect()->route('user.dashboard')
-            ->with('login_success', 'Successfully registered!');
+            ->with('alert_message', 'Successfully registered!');
     }
 
     public function dashboard()

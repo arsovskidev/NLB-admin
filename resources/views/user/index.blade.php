@@ -125,11 +125,11 @@
             </section>
         </div>
     </body>
-    @if (\Session::has('invalid_credentials'))
+    @if (\Session::has('alert_message'))
         <script>
             iziToast.error({
                 title: 'Error',
-                message: '{{ \Session::get('invalid_credentials') }}'
+                message: '{{ \Session::get('alert_message') }}'
             });
         </script>
     @endif
