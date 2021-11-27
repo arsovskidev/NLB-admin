@@ -21,4 +21,7 @@ Route::group(['prefix' => 'account'], function () {
     Route::get('/logout',      [UserController::class, 'logout'])->name('user.logout');
     Route::post('/login',      [UserController::class, 'login'])->name('user.login');
     Route::post('/register',   [UserController::class, 'register'])->name('user.register');
+
+    Route::get('/revoke/key/api',      [UserController::class, 'revokeApiKey'])->name('user.revoke.api.key');
+    Route::get('/revoke/key/widget',   [UserController::class, 'revokeWidgetKey'])->name('user.revoke.widget.key');
 });

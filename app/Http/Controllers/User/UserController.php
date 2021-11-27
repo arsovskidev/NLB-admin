@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use App\Models\WidgetToken;
+use App\Models\WidgetKey;
+use App\Models\ApiKey;
 
 class UserController extends Controller
 {
@@ -23,10 +24,14 @@ class UserController extends Controller
     {
         $input = $request->all();
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'login_email' => 'required|email',
             'login_password' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with(['errors' => $validator->errors()]);
+        }
 
         $credentials = [
             'email' => $input['login_email'],
@@ -35,7 +40,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             return redirect()->route('user.dashboard')
-                ->with('login_success', 'Successfully logged in!');
+                ->with('alert_message', 'Successfully logged in!');
         }
 
         return redirect()->back()->with('invalid_credentials', 'Login credentials are invalid.');
@@ -44,27 +49,26 @@ class UserController extends Controller
     {
         $input = $request->all();
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|alpha|max:255',
             'surname' => 'required|alpha|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
+            'password' => 'required_with:confirm_password|same:confirm_password|min:6',
             'confirm_password' => 'required|min:6',
         ]);
 
-
-        if ($input['password'] != $input['confirm_password']) {
-            return redirect()->back()->with('invalid_password', 'Invalid password confirmation!');
+        if ($validator->fails()) {
+            return redirect()->back()->with(['errors' => $validator->errors(), 'scroll' => 'register']);
         }
 
         $input['password'] = Hash::make($request->password);
 
         $user = User::create($input);
 
-        WidgetToken::create(['user_id' => $user->id, 'access_token' => "widget" . Str::random(35)]);
+        WidgetKey::create(['user_id' => $user->id, 'key' => WidgetKey::generate()]);
+        ApiKey::create(['user_id' => $user->id, 'key' => ApiKey::generate()]);
 
         Auth::login($user);
-
 
         return redirect()->route('user.dashboard')
             ->with('login_success', 'Successfully registered!');
@@ -73,6 +77,22 @@ class UserController extends Controller
     public function dashboard()
     {
         return view('user.dashboard');
+    }
+
+    public function revokeApiKey()
+    {
+        $user = Auth::user();
+        $user->apiKey->delete();
+        ApiKey::create(['user_id' => $user->id, 'key' => ApiKey::generate()]);
+        return redirect()->route('user.dashboard')->with(['alert_message' => 'Successfully revoked API Key!', 'scroll' => 'keys']);
+    }
+
+    public function revokeWidgetKey()
+    {
+        $user = Auth::user();
+        $user->widgetKey->delete();
+        WidgetKey::create(['user_id' => $user->id, 'key' => widgetKey::generate()]);
+        return redirect()->route('user.dashboard')->with(['alert_message' => 'Successfully revoked Widget Key!', 'scroll' => 'keys']);
     }
 
     public function logout()

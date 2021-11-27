@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWidgetTokensTable extends Migration
+class CreateWidgetKeysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateWidgetTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('widget_tokens', function (Blueprint $table) {
+        Schema::create('widget_keys', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id')->nullable(false);
-            $table->string('access_token', 50)->unique();
+            $table->string('key', 64);
+            $table->softDeletes();
             $table->timestamps();
 
+            $table->index('key');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -30,6 +32,6 @@ class CreateWidgetTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('widget_tokens');
+        Schema::dropIfExists('widget_keys');
     }
 }
