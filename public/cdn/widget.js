@@ -166,18 +166,31 @@ $(function () {
     .append(btnBank, btnApp)
     .css({ display: "flex", justifyContent: "space-between" });
 
-  for (let i = 0; i < 10; i++) {
-    let cards = $("<a/>");
-    cards
-      .addClass("widget-custom-cards")
-      .attr("id", "stopanska")
-      .append("<div><img src='./img/stopanska.png' /></div>");
+    $.ajax({
+      url: "https://api.nlb.astennu.com/api/v1/widget/banks",
+      headers:{
+        'X-Authorization': nlb_widget_key,
+        'Accept': 'application/json',
+      },
+      method: 'POST',
+      dataType: 'json',
+      success: function(data){
+        $.each(data.data.banks, function(i, item) {
+          let cards = $("<a/>");
+          cards
+            .addClass("widget-custom-cards")
+            .attr("id", item.slug)
+            .append("<div style='height: 100px;'><img src='" + item.image + "' /></div>");
 
-    cards.on("click", function (e) {
-      window.location.hash = "#login";
-    });
-    divBankAppCards.append(cards);
-  }
+          cards.on("click", function (e) {
+            window.location.hash = "#login";
+            $('form').attr('action', item.login_route);
+          });
+          divBankAppCards.append(cards);
+      });
+      }
+    })
+ 
 
   divBankAppCards.css({ display: "flex", flexWrap: "wrap", marginTop: "35px" });
 
@@ -191,8 +204,11 @@ $(function () {
   let titleLogIn = $("<h2/>");
   let divLogInForm = $("<div/>");
   let logInForm = $("<form/>");
-  let logInBtn = $("<button/>");
+  let logInBtn = $("<button type='submit'/>");
   let logInBtnDiv = $("<div/>");
+  let divErrors = $("<div/>");
+  let divAccount = $("<div/>");
+
 
   titleLogIn.text("Creditentials").css({ textAlign: "center" });
   divLogIn.addClass("div-log-in").append(titleLogIn);
@@ -203,16 +219,16 @@ $(function () {
 
   logInForm.addClass("log-in-form").append(
     `<div>
-    <label for="username">Username</label>
-    <input type="text" name="username" id=username>
+    <label for="email">Email</label>
+    <input type="text" name="email" id=email required>
     </div>
     <div>
     <label for="password">Password</label>
-    <input type="text" name="password" id=password>
+    <input type="password" name="password" id=password required>
     </div>`
   );
 
-  logInBtn.text("Log In").addClass("widget-custom-button");
+  logInBtn.text("Log In").addClass("widget-custom-button").css({ marginTop: "50px" });;
   logInBtnDiv
     .append(
       logInBtn,
@@ -220,8 +236,9 @@ $(function () {
     )
     .css({ marginTop: "auto" });
 
+  logInForm.append(logInBtnDiv);
   divLogInForm.append(logInForm);
-  divLogIn.append(divLogInForm, logInBtnDiv);
+  divLogIn.append(divLogInForm);
 
   $("#widget-open-finance").append(
     divSplashScreen,
@@ -229,6 +246,64 @@ $(function () {
     divChooseBankApp,
     divLogIn
   );
+
+  $("form").submit(function(e){
+
+    e.preventDefault();
+    let email = $('#email').val();
+    let password = $('#password').val();
+    $.ajax({
+      url: $("form").attr('action') + 'login',
+      headers:{
+        'Accept': 'application/json',
+      },
+      method: 'POST',
+      dataType: 'json',
+      data:{
+        email: email,
+        password: password,
+      },
+      statusCode: {
+        200: function (response){
+          $.ajax({
+            url: $("form").attr('action') + 'info',
+            headers:{
+              'Accept': 'application/json',
+            },
+            method: 'POST',
+            dataType: 'json',
+            data:{
+              token: response.token,
+            },
+            statusCode: {
+              200: function (response){
+                console.log(response.client)
+                divSplashScreen.css({ display: "none" });
+                divChooseCountry.css({ display: "none" });
+                divChooseBankApp.css({ display: "none" });
+                divLogIn.css({ display: "none" });
+                divAccount.append("<h1>" + response.client.name + "</h1>");
+                divAccount.append("<h1>" + response.client.surname + "</h1>");
+                divAccount.append("<h1>" + response.client.email + "</h1>");
+                $.each(response.client.accounts, function(i, account) {
+                  console.log(account)
+                });
+                $("#widget-open-finance").append(divAccount);
+              }
+            }
+          });
+        },
+        422: function (e){
+          $.each(e.responseJSON.errors, function(i, error) {
+            console.log(error[0])
+          });
+        },
+        401: function (e){
+          console.log(e.responseJSON.message);
+        }
+      },
+    })
+  });
 
   //Router function
   function handleRoute() {

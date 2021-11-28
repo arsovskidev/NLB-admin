@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BankController;
 use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\WidgetController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1', 'middleware' => ['throttle:60,1']], function () {
-    Route::get('/status',   [InfoController::class, 'status']);
+    Route::get('/status',          [InfoController::class, 'status']);
 
     Route::group(['prefix' => 'widget', 'middleware' => ['auth.widget']], function () {
         Route::post('/validate',   [WidgetController::class, 'index']);
+        Route::post('/banks',       [BankController::class, 'index']);
     });
 });

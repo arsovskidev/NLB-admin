@@ -143,7 +143,7 @@
                                     <div class="col-md-3 mt-4">
                                         <div class="card text-center">
                                             <img style="width: 200px; height: 80px;" class="mx-auto"
-                                                src="{{ $bank->getBankImage() }}" alt="{{ $bank->getBankName() }}" />
+                                                src="{{ $bank->bankImage() }}" alt="{{ $bank->bankName() }}" />
                                         </div>
                                     </div>
                                 @endforeach

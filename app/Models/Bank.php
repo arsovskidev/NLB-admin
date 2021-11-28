@@ -15,25 +15,18 @@ class Bank extends Model
         'api',
     ];
 
-    public function getBankName()
+    public function bankName()
     {
         $client = new Client();
         $res = $client->get($this->api . '/api/info');
         $data = json_decode($res->getBody(), true);
         return $data['name'];
     }
-    public function getBankImage()
+    public function bankImage()
     {
         $client = new Client();
         $res = $client->get($this->api . '/api/info');
         $data = json_decode($res->getBody(), true);
         return $data['image'];
-    }
-    public function getBankDesc()
-    {
-        $client = new Client();
-        $res = $client->get($this->api . '/api/info');
-        $data = json_decode($res->getBody(), true);
-        return $data['desc'];
     }
 }
