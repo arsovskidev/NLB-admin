@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}" />
+    <link rel="stylesheet" href="{{ asset('cdn/widget-style.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
 @endsection
 @section('js')
@@ -35,6 +36,10 @@
                         <a data-target="api-documentation" class="scroll-to-link nav_link active">
                             <i class="bx bx-code-alt nav_icon"></i>
                             <span class="nav_name">API Documentation</span>
+                        </a>
+                        <a data-target="widget" class="scroll-to-link nav_link">
+                            <i class="bx bxs-widget nav_icon"></i>
+                            <span class="nav_name">Widget</span>
                         </a>
                         <a data-target="statistics" class="scroll-to-link nav_link">
                             <i class="bx bx-stats nav_icon"></i>
@@ -106,6 +111,26 @@
                     </div>
                 </div>
             </section>
+            <section class="content-section my-5" id="widget">
+                <div class="container-fluid">
+                    <h1 class="fw-normal">Widget</h1>
+                    <div class="mt-5">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="card">
+                                        <div id="widget-open-finance" style="height: 900px"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="card">
+                                        <img src="{{ asset('images/widget-screenshot.png') }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
             <section class="content-section my-5" id="statistics">
                 <div class="container-fluid">
                     <h1 class="fw-normal">Statistics</h1>
@@ -117,11 +142,8 @@
                                 @foreach ($banks as $bank)
                                     <div class="col-md-3 mt-4">
                                         <div class="card text-center">
-                                            <img class="mx-auto" src="{{ $bank->getBankImage() }}" alt="NLB"
-                                                width="200px" />
-                                            <div class="card-body">
-                                                <p class="card-text text-red">{{ $bank->status }}</p>
-                                            </div>
+                                            <img style="width: 200px; height: 80px;" class="mx-auto"
+                                                src="{{ $bank->getBankImage() }}" alt="{{ $bank->getBankName() }}" />
                                         </div>
                                     </div>
                                 @endforeach
@@ -141,5 +163,9 @@
                 }
             });
         </script>
+        <script>
+            let nlb_widget_key = "{{ env('WIDGET_TEST_KEY', false) }}";
+        </script>
+        <script src="{{ asset('cdn/widget.js') }}"></script>
     </body>
 @endsection

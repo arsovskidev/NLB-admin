@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use GuzzleHttp\Client;
 
 class Bank extends Model
 {
@@ -14,8 +15,25 @@ class Bank extends Model
         'api',
     ];
 
+    public function getBankName()
+    {
+        $client = new Client();
+        $res = $client->get($this->api . '/api/info');
+        $data = json_decode($res->getBody(), true);
+        return $data['name'];
+    }
     public function getBankImage()
     {
-        return "{$this->api}/public/images/logo.png";
+        $client = new Client();
+        $res = $client->get($this->api . '/api/info');
+        $data = json_decode($res->getBody(), true);
+        return $data['image'];
+    }
+    public function getBankDesc()
+    {
+        $client = new Client();
+        $res = $client->get($this->api . '/api/info');
+        $data = json_decode($res->getBody(), true);
+        return $data['desc'];
     }
 }

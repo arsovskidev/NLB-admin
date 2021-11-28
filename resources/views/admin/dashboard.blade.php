@@ -106,11 +106,8 @@
                                 @foreach ($banks as $bank)
                                     <div class="col-md-3 mt-4">
                                         <div class="card text-center">
-                                            <img class="mx-auto" src="{{ $bank->getBankImage() }}" alt="NLB"
-                                                width="200px" />
-                                            <div class="card-body">
-                                                <p class="card-text text-red">{{ $bank->status }}</p>
-                                            </div>
+                                            <img style="width: 200px; height: 80px;" class="mx-auto"
+                                                src="{{ $bank->getBankImage() }}" alt="NLB" />
                                         </div>
                                     </div>
                                 @endforeach
