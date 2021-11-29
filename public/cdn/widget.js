@@ -261,6 +261,18 @@ $(function () {
       divLogIn
     );
 
+    let errorDiv = $("<div></div>");
+    errorDiv.attr("id", "notification").css({ display: "none" });
+    let spanErrDissmiss = $("<span></span>");
+    let aErr = $("<a></a>");
+
+    spanErrDissmiss.addClass("dismiss");
+
+    aErr.attr("title", "dismiss this notification").text("x");
+    spanErrDissmiss.append(aErr);
+    errorDiv.append(spanErrDissmiss);
+    $("#widget-open-finance").append(errorDiv);
+
     $("form").submit(function (e) {
       e.preventDefault();
       let email = $("#email").val();
@@ -290,6 +302,9 @@ $(function () {
               },
               statusCode: {
                 200: function (response) {
+                  errorDiv.fadeOut("slow");
+                  errorDiv.empty();
+
                   console.log(response.client);
                   divSplashScreen.css({ display: "none" });
                   divChooseCountry.css({ display: "none" });
@@ -356,13 +371,13 @@ $(function () {
               },
             });
           },
-          422: function (e) {
-            $.each(e.responseJSON.errors, function (i, error) {
-              console.log(error[0]);
-            });
-          },
           401: function (e) {
-            console.log(e.responseJSON.message);
+            errorDiv.empty();
+            errorDiv.append(spanErrDissmiss);
+            errorDiv.fadeIn("slow").append(e.responseJSON.message);
+            $(spanErrDissmiss).click(function () {
+              errorDiv.fadeOut("slow");
+            });
           },
         },
       });

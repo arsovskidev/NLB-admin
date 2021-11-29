@@ -13,6 +13,7 @@
 .img-splash-screen {
     display: block;
     margin: 0 auto;
+    width: 80%;
 }
 .lock {
     position: absolute;
@@ -38,7 +39,7 @@
 }
 
 .widget-custom-button {
-    width: 300px;
+    width: 80%;
     display: block;
     height: 58px;
     margin: 0 auto;
@@ -111,7 +112,7 @@
 }
 .widget-custom-cards img {
     display: block;
-    width: 100px;
+    width: 80%;
 }
 
 .div-log-in {
@@ -148,4 +149,30 @@
 #email,
 #password {
     width: 100%;
+}
+
+#notification {
+    position: fixed;
+    top: 0px;
+    width: 80%;
+    z-index: 105;
+    text-align: center;
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff7800;
+    padding: 5px;
+}
+#notification span.dismiss {
+    border: 2px solid #fff;
+    padding: 0 5px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+}
+#notification a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
 }
