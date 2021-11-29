@@ -52,6 +52,7 @@
 }
 
 .div-choose-country {
+    position: relative;
     max-width: 425px;
     height: 100vh;
     margin: 0 auto;
@@ -70,6 +71,7 @@
     font-weight: 400;
 }
 .div-choose-bank-app {
+    position: relative;
     max-width: 425px;
     height: 100vh;
     margin: 0 auto;
@@ -113,6 +115,7 @@
 }
 
 .div-log-in {
+    position: relative;
     max-width: 425px;
     height: 100vh;
     margin: 0 auto;
@@ -142,7 +145,7 @@
     border-color: #26007d;
 }
 
-#email,
+#username,
 #password {
     width: 100%;
 }

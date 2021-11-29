@@ -168,6 +168,9 @@ $(function () {
       .append(btnBank, btnApp)
       .css({ display: "flex", justifyContent: "space-between" });
 
+    if (window.location.hash) {
+      window.location.hash = "";
+    }
     $.ajax({
       url: "https://api.nlb.astennu.com/api/v1/widget/banks",
       headers: {
@@ -294,7 +297,7 @@ $(function () {
                   divLogIn.css({ display: "none" });
                   divAccount.attr(
                     "style",
-                    "position:relative;max-width: 1024px;height: 100vh;margin: 0 auto;padding: 80px 25px 30px;"
+                    "position:relative;max-width: 1024px;height: 100vh;margin: 0 auto;padding: 80px 10px 30px;"
                   );
                   let totalBalance = 0;
                   $.each(response.client.accounts, function (i, account) {
@@ -313,7 +316,7 @@ $(function () {
                     color: "#3D5A80",
                     textAlign: "center",
                     borderCollapse: "collapse",
-                    fontSize: 14,
+                    fontSize: 13,
                     width: "100%",
                   });
                   let tableHeadRow = $("<tr></tr>");
@@ -375,19 +378,24 @@ $(function () {
           divChooseCountry.css({ display: "none" });
           divChooseBankApp.css({ display: "none" });
           divLogIn.css({ display: "none" });
+          divAccount.css({ display: "none" });
+          divAccount.html("");
           break;
         case "#country":
           divSplashScreen.css({ display: "none" });
           divChooseCountry.css({ display: "block" }).append(backLink);
           divChooseBankApp.css({ display: "none" });
-
           divLogIn.css({ display: "none" });
+          divAccount.css({ display: "none" });
+          divAccount.html("");
           break;
         case `#country#choose`:
           divSplashScreen.css({ display: "none" });
           divChooseCountry.css({ display: "none" });
           divChooseBankApp.css({ display: "block" }).append(backLink);
           divLogIn.css({ display: "none" });
+          divAccount.css({ display: "none" });
+          divAccount.html("");
           break;
         case `#login`:
           divSplashScreen.css({ display: "none" });
