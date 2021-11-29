@@ -33,5 +33,3 @@ $ php artisan migrate --seed
 ```
 $ php artisan serve
 ```
-
-###### Feel free to contribute.
